@@ -13,7 +13,6 @@ public class ClientboundHypixelPayload {
     private ErrorReason errorReason;
 
     public ClientboundHypixelPayload(Identifier id, PacketByteBuf buf) {
-
         PacketSerializer serializer = new PacketSerializer(buf);
         boolean success = serializer.readBoolean();
         if (!success) {

@@ -61,7 +61,7 @@ public class FabricModAPI implements ClientModInitializer {
             Identifier clientboundId = new Identifier(identifier);
 
             ClientPlayNetworking.registerGlobalReceiver(clientboundId, (minecraft, networkHandler, payload, sender) -> {
-                LOGGER.debug("Received packet with identifier '%s', during PLAY", identifier);
+                LOGGER.debug("Received packet with identifier '%s'", identifier);
                 handleIncomingPayload(identifier, new ClientboundHypixelPayload(clientboundId, payload));
             });
         } catch (IllegalArgumentException ignored) {
