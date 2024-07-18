@@ -6,7 +6,7 @@
   "description": "",
   "authors": [],
   "contact": {
-    "repo": "https://github.com/HypixelDev/FabricModAPI"
+    "repo": "https://github.com/LooFifteen/hypixel-mod-api-legacyfabric"
   },
   "license": "MIT",
   "icon": "assets/hypixel-mod-api/icon.png",
@@ -18,7 +18,7 @@
   },
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric": "*",
-    "minecraft": ">=${minecraft_version}"
+    "legacy-fabric-api": "*",
+    "minecraft": "${minecraft_version}"
   }
 }

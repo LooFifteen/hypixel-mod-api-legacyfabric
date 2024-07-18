@@ -4,18 +4,15 @@ import net.hypixel.modapi.HypixelModAPI;
 import net.hypixel.modapi.error.ErrorReason;
 import net.hypixel.modapi.packet.ClientboundHypixelPacket;
 import net.hypixel.modapi.serializer.PacketSerializer;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
+import net.legacyfabric.fabric.api.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 
-public class ClientboundHypixelPayload implements CustomPayload {
-    private final Id<ClientboundHypixelPayload> id;
+public class ClientboundHypixelPayload {
 
     private ClientboundHypixelPacket packet;
     private ErrorReason errorReason;
 
-    private ClientboundHypixelPayload(Id<ClientboundHypixelPayload> id, PacketByteBuf buf) {
-        this.id = id;
+    public ClientboundHypixelPayload(Identifier id, PacketByteBuf buf) {
 
         PacketSerializer serializer = new PacketSerializer(buf);
         boolean success = serializer.readBoolean();
@@ -24,12 +21,7 @@ public class ClientboundHypixelPayload implements CustomPayload {
             return;
         }
 
-        this.packet = HypixelModAPI.getInstance().getRegistry().createClientboundPacket(id.id().toString(), serializer);
-    }
-
-    @Override
-    public Id<? extends CustomPayload> getId() {
-        return id;
+        this.packet = HypixelModAPI.getInstance().getRegistry().createClientboundPacket(id.toString(), serializer);
     }
 
     public boolean isSuccess() {
@@ -44,9 +36,4 @@ public class ClientboundHypixelPayload implements CustomPayload {
         return errorReason;
     }
 
-    public static PacketCodec<PacketByteBuf, ClientboundHypixelPayload> buildCodec(Id<ClientboundHypixelPayload> id) {
-        return CustomPayload.codecOf((value, buf) -> {
-            throw new UnsupportedOperationException("Cannot write ClientboundHypixelPayload");
-        }, buf -> new ClientboundHypixelPayload(id, buf));
-    }
 }

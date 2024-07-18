@@ -1,8 +1,8 @@
 package net.hypixel.modapi.fabric.event;
 
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
 import net.hypixel.modapi.packet.ClientboundHypixelPacket;
+import net.legacyfabric.fabric.api.event.Event;
+import net.legacyfabric.fabric.api.event.EventFactory;
 
 /**
  * Callback for when a Hypixel Mod API packet is received.

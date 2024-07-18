@@ -2,32 +2,26 @@ package net.hypixel.modapi.fabric.payload;
 
 import net.hypixel.modapi.packet.HypixelPacket;
 import net.hypixel.modapi.serializer.PacketSerializer;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
+import net.legacyfabric.fabric.api.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 
-public class ServerboundHypixelPayload implements CustomPayload {
-    private final Id<ServerboundHypixelPayload> id;
+public class ServerboundHypixelPayload {
+
+    private final Identifier id;
     private final HypixelPacket packet;
 
     public ServerboundHypixelPayload(HypixelPacket packet) {
-        this.id = CustomPayload.id(packet.getIdentifier());
+        this.id = new Identifier(packet.getIdentifier());
         this.packet = packet;
     }
 
-    private void write(PacketByteBuf buf) {
+    public void write(PacketByteBuf buf) {
         PacketSerializer serializer = new PacketSerializer(buf);
         packet.write(serializer);
     }
 
-    @Override
-    public Id<? extends CustomPayload> getId() {
+    public Identifier getId() {
         return id;
     }
 
-    public static PacketCodec<PacketByteBuf, ServerboundHypixelPayload> buildCodec(Id<ServerboundHypixelPayload> id) {
-        return CustomPayload.codecOf(ServerboundHypixelPayload::write, buf -> {
-            throw new UnsupportedOperationException("Cannot read ServerboundHypixelPayload");
-        });
-    }
 }
